@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html> 
+	<head> 
+	<title>My Page</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.theme-1.4.5.min.css" />
+    
+    <!-- Include the jQuery library -->
+    <script src="jquery.mobile-1.4.5/jquery-1.11.3.min.js"></script>
+    <script>
+        $(document).bind('mobileinit',function(){
+            $.mobile.changePage.defaults.changeHash = false;
+            $.mobile.hashListeningEnabled = false;
+            $.mobile.pushStateEnabled = false;
+        });
+    </script>
+    <script src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js" type="text/javascript"></script> 
+    <script src="pullToRefresh.js" type="text/javascript"></script>
+    
+    <script>
+        function convertSVG() {
+            jQuery('.svg').each(function () {
+                var $img = jQuery(this);
+                var imgID = $img.attr('id');
+                var imgClass = $img.attr('class');
+                var imgURL = $img.attr('src');
+
+                jQuery.get(imgURL, function (data) {
+                    // Get the SVG tag, ignore the rest
+                    var $svg = jQuery(data).find('svg');
+                    // Add replaced image's ID to the new SVG
+                    if (typeof imgID !== 'undefined') {
+                        $svg = $svg.attr('id', imgID);
+                    }
+                    // Add replaced image's classes to the new SVG
+                    if (typeof imgClass !== 'undefined') {
+                        $svg = $svg.attr('class', imgClass + ' replaced-svg');
+                    }
+                    // Remove any invalid XML tags as per http://validator.w3.org
+                    $svg = $svg.removeAttr('xmlns:a');
+                    // Replace image with new SVG
+                    $img.replaceWith($svg);
+
+                }, 'xml');
+            });
+        }
+        
+        $(document).ready(function(){
+            convertSVG();
+            pullToRefresh.initiate();
+        });
+    </script>
+    
+    <style>
+        .pull-wrapper {
+            overflow-y:hidden;
+            text-align: center;
+        }
+
+        .pull-scroll-wrapper{
+            overflow-y:auto;
+            -webkit-overflow-scrolling: touch;
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        .pull-image{
+            width:30px;
+        }
+
+        .pull-image-flipped{
+            -moz-transform: scale(1, -1);
+            -webkit-transform: scale(1, -1);
+            -o-transform: scale(1, -1);
+            -khtml-transform: scale(1, -1);
+            -ms-transform: scale(1, -1);
+            transform: scale(1, -1);
+        }
+
+        .pull-message-wrapper-hidden{
+            visibility: hidden;
+        }
+
+        .pull-image-spin{
+            -webkit-animation:spin ease linear infinite;
+            -moz-animation:spin ease linear infinite;
+            animation:spin 1s ease infinite;
+        }
+        @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); transform:rotate(360deg);  } }
+        @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg);  } }
+        @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+    </style>
+</head>
+ 
+<body> 
+<div id="pullToRefreshHeader" data-role="header" data-position="fixed"
+	data-tap-toggle="false"><h1>Pull to Refresh</h1></div>
+<div class="pull-scroll-wrapper">
+	<div class="pull-wrapper">
+		<div class="pull-message-wrapper pull-message-wrapper-hidden">
+			<img class="pull-image" src="images/arrows_chevron_up.svg">
+			<div id="pullText">Pull to Refresh</div>
+		</div>
+		<ul data-role="listview">
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+			<li><a href="#">
+					<h3>Refreshed List Test</h3>
+			</a></li>
+		</ul>
+	</div>
+</div>
+
+</body>
+
+</html>
