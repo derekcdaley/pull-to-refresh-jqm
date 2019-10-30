@@ -5,16 +5,9 @@ var pullToRefresh = {
   refreshPTRContent: function() {
     setTimeout(function() {
       var outsideWrapper = $("div.pull-scroll-wrapper"),
-        listHeight = $("div.pull-scroll-wrapper")
-          .find("ul")
-          .outerHeight(),
+        listHeight = outsideWrapper.find("ul").outerHeight(),
         viewPortHeight = $("body.ui-mobile-viewport").outerHeight(),
-        listRest =
-          $("div.pull-scroll-wrapper")
-            .find("ul")
-            .offset().top -
-          $(window).scrollTop() -
-          43;
+        listRest = outsideWrapper.find("ul").offset().top - $(window).scrollTop() - 43;
       if (listHeight >= viewPortHeight) outsideWrapper.outerHeight(viewPortHeight - 55);
       else outsideWrapper.outerHeight(listHeight);
       outsideWrapper.scrollTop(listRest);
