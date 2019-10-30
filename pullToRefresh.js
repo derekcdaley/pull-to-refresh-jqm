@@ -55,7 +55,7 @@ var pullToRefresh = {
         if (pos > 95) {
           isRefreshing = true;
           img.attr("src", "images/common_refresh.svg");
-          pullText.text("Refreshing...");
+          pullText.text("Refreshing Data");
           img.addClass("pull-image-spin").removeClass("pull-image-flipped");
           pullToRefresh.onRefresh();
           setTimeout(function() {
