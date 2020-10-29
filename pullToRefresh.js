@@ -33,16 +33,29 @@ var pullToRefresh = {
         $(window).scrollTop() -
         43;
 
+        var clicked = false, clickY;
+        
+        var updateScrollPos = function(e) {
+            $('html').css('cursor', 'row-resize');
+            outsideWrapper.scrollTop(outsideWrapper.scrollTop() + (clickY - e.pageY));
+        }
+
+
     $("div.pull-scroll-wrapper *").attr('draggable', false);
 
     pullToRefresh.refreshPTRContent();
     setTimeout(function() {
       outsideWrapper.scrollTop(listRest);
-      outsideWrapper.on('mousedown touchstart', function(){
+      outsideWrapper.on('mousedown touchstart', function(e){
+
+        clicked = true;
+        clickY = e.pageY;
         isTouched = true;
       });
 
-      outsideWrapper.on("touchmove mousemove", function() {
+      outsideWrapper.on("touchmove mousemove", function(e) {
+        console.log(clicked);
+        clicked && updateScrollPos(e);
         if(isTouched){
           var pos2 = outsideWrapper.find("ul").offset().top - w.scrollTop();
           if (msgWrapper.hasClass("pull-message-wrapper-hidden") && pos2 >= 42)
@@ -59,6 +72,9 @@ var pullToRefresh = {
         }
       });
       ul.on("touchend mouseup", function() {
+
+        clicked = false;
+        $('html').css('cursor', 'auto');
         isTouched = false;
         var w = $(window),
           pos = $(this).offset().top - w.scrollTop();
