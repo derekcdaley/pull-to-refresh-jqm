@@ -1,5 +1,7 @@
 
 window.addEventListener("wheel", function(e){e.preventDefault();}, {passive: false} );
+
+
 var pullToRefresh = {
   onRefresh: function() {
     console.log("No defined refresh function!");
@@ -31,26 +33,32 @@ var pullToRefresh = {
         $(window).scrollTop() -
         43;
 
+    $("div.pull-scroll-wrapper *").attr('draggable', false);
+
     pullToRefresh.refreshPTRContent();
     setTimeout(function() {
       outsideWrapper.scrollTop(listRest);
-
-      outsideWrapper.on("touchmove", function() {
+      outsideWrapper.on('mousedown touchstart', function(){
         isTouched = true;
-        var pos2 = outsideWrapper.find("ul").offset().top - w.scrollTop();
-        if (msgWrapper.hasClass("pull-message-wrapper-hidden") && pos2 >= 42)
-          msgWrapper.removeClass("pull-message-wrapper-hidden");
-        if (pos2 > 95) {
-          img.addClass("pull-image-flipped");
-          pullText.text("Release");
-          img.removeClass("pull-image-spin");
-        } else {
-          img.removeClass("pull-image-flipped");
-          pullText.text("Pull to Refresh");
-          img.removeClass("pull-image-spin");
+      });
+
+      outsideWrapper.on("touchmove mousemove", function() {
+        if(isTouched){
+          var pos2 = outsideWrapper.find("ul").offset().top - w.scrollTop();
+          if (msgWrapper.hasClass("pull-message-wrapper-hidden") && pos2 >= 42)
+            msgWrapper.removeClass("pull-message-wrapper-hidden");
+          if (pos2 > 95) {
+            img.addClass("pull-image-flipped");
+            pullText.text("Release");
+            img.removeClass("pull-image-spin");
+          } else {
+            img.removeClass("pull-image-flipped");
+            pullText.text("Pull to Refresh");
+            img.removeClass("pull-image-spin");
+          }
         }
       });
-      ul.on("touchend", function() {
+      ul.on("touchend mouseup", function() {
         isTouched = false;
         var w = $(window),
           pos = $(this).offset().top - w.scrollTop();
