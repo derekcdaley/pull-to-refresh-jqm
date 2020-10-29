@@ -73,6 +73,7 @@ var pullToRefresh = {
       });
       ul.on("touchend mouseup", function() {
 
+        isRefreshing = false;
         clicked = false;
         $('html').css('cursor', 'auto');
         isTouched = false;
@@ -87,7 +88,6 @@ var pullToRefresh = {
           setTimeout(function() {
             refreshMessage(outsideWrapper, msgWrapper);
             img.attr("src", "images/arrows_chevron_up.svg");
-            isRefreshing = false;
             img.removeClass("pull-image-spin");
           }, 2000);
         } else if (pos > listRest) pullToRefresh.refreshPTRContent();
