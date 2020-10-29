@@ -1,3 +1,5 @@
+
+window.addEventListener("wheel", function(e){e.preventDefault();}, {passive: false} );
 var pullToRefresh = {
   onRefresh: function() {
     console.log("No defined refresh function!");
@@ -71,7 +73,8 @@ var pullToRefresh = {
       outsideWrapper.on("scrollstop", function() {
         setTimeout(function() {
           var pos1 = outsideWrapper.find("ul").offset().top - w.scrollTop();
-          if (pos1 >= listRest && !isRefreshing && !isTouched)
+          console.log(pos1);
+          if (pos1 >= listRest && !isRefreshing && isTouched)
             refreshMessage(outsideWrapper, msgWrapper);
         }, 0);
       });
